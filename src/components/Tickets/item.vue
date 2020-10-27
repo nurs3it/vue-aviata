@@ -1,7 +1,21 @@
 <template>
   <v-card elevation="2" class="pa-0">
     <v-row class="tickets__item">
-      <v-col class="pa-5" cols="9"></v-col>
+      <v-col class="pa-5 pl-16 pr-16" cols="9">
+        <v-row no-gutters class="height-100">
+          <v-col cols="12"></v-col>
+          <v-col cols="12" class="mt-auto">
+            <a
+                color="secondary"
+                class="text-decoration-none"
+            >Детали перетела</a>
+            <a
+                color="secondary"
+                class="text-decoration-none ml-5"
+            >Условия тарифа</a>
+          </v-col>
+        </v-row>
+      </v-col>
       <v-col class="pa-5 secondary-background-color" cols="3">
         <v-row no-gutters class="flex-column pa-0 ma-0">
           <v-col cols="12" class="pa-0 ma-0 mb-3"><h3 align="center">540 000</h3></v-col>
