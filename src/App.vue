@@ -1,11 +1,28 @@
 <template>
   <v-app id="app">
-    <v-main></v-main>
+    <v-main class="main-background-color">
+      <v-app-bar elevation="0" class="pa-0 mb-10 white-background-color">
+        <HeaderBar />
+      </v-app-bar>
+      <v-container class="flex-column">
+        <MainContent />
+      </v-container>
+      <!--<v-footer class="pa-0">
+        <FooterContent />
+      </v-footer>-->
+    </v-main>
   </v-app>
 </template>
 
 <script>
+import HeaderBar from "./components/HeaderBar";
+import MainContent from "./components/MainContent";
 export default {
   name: "App",
+  components: {MainContent, HeaderBar},
 };
 </script>
+
+<style lang="scss">
+@import "assets/styles/main";
+</style>
