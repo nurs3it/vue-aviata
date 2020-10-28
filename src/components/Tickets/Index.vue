@@ -1,8 +1,13 @@
 <template>
   <v-row class="tickets">
-    <template v-if="!filteredFlights.length">
-      <v-col class="pa-0 pb-3" cols="12" v-for="(item, index) in 5" :key="`skeleton-${index}`">
+    <template v-if="!loading">
+      <v-col class="pa-0 pb-3" cols="12" v-for="(item, index) in 4" :key="`skeleton-${index}`">
         <SkeletonItem/>
+      </v-col>
+    </template>
+    <template v-else-if="!filteredFlights.length">
+      <v-col class="pa-0 pb-0" cols="12">
+        <h3>Нет данных</h3>
       </v-col>
     </template>
     <template v-else>
@@ -23,12 +28,14 @@ export default {
   components: {SkeletonItem, TicketsItem},
   props: ["tickets"],
   computed: {
-    ...mapGetters(['filteredFlights'])
+    ...mapGetters(['filteredFlights', 'loading'])
   },
   inject: ['theme'],
 }
 </script>
 
 <style scoped>
-
+.tickets {
+  width: 100%;
+}
 </style>

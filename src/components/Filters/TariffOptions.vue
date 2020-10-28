@@ -1,7 +1,21 @@
 <template>
   <v-card class="card-background-color">
     <v-row class="pa-3">
-      <v-col cols="12"><h3>Опции тарифа</h3></v-col>
+      <v-col cols="12" class="d-flex align-center justify-space-between">
+        <h3>Опции тарифа</h3>
+
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <span v-bind="attrs"
+                  v-on="on"
+                  @click="resetAll"
+                  class="reset-btn">
+              <img src="../../assets/icons/reset.svg" alt="reset">
+            </span>
+          </template>
+          <span>Сбросить выбор</span>
+        </v-tooltip>
+      </v-col>
       <v-col cols="12">
         <v-checkbox v-model="directOnly" class="ma-0 pa-0" color="accent" label="Только прямые"/>
         <v-checkbox v-model="luggageOnly" class="ma-0 pa-0" color="accent" label="Только c багажом"/>
@@ -12,6 +26,8 @@
 </template>
 
 <script>
+import {mapMutations} from "vuex";
+
 export default {
   name: "TariffOptions",
   computed: {
@@ -40,9 +56,19 @@ export default {
       }
     }
   },
+  methods: {
+    ...mapMutations(["CHANGE_FILTERS_DIRECT_ONLY", "CHANGE_FILTERS_RETURNABLE_ONLY", "CHANGE_FILTERS_LUGGAGE_ONLY"]),
+    resetAll() {
+      this.CHANGE_FILTERS_DIRECT_ONLY(false);
+      this.CHANGE_FILTERS_RETURNABLE_ONLY(false);
+      this.CHANGE_FILTERS_LUGGAGE_ONLY(false);
+    }
+  },
 }
 </script>
 
 <style scoped>
-
+.reset-btn {
+  cursor: pointer;
+}
 </style>

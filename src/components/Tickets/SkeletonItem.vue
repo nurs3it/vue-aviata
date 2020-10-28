@@ -3,7 +3,7 @@
       ref="skeleton"
       transition="scale-transition"
       :tile="false"
-      class="mx-auto"
+      class="pa-0 ma-0"
       max-width="100%"
       max-height="190px"
       type="card"

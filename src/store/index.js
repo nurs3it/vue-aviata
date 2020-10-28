@@ -78,6 +78,9 @@ export default new Vuex.Store({
         .filter(f => filter.directOnly ? f.itineraries[0][0].stops === 0 : f)
         .filter(f => filter.returnableOnly ? f.refundable : f)
         .filter(f => filter.luggageOnly ? f.services['1PC'] || f.services['20KG'] : f)
-    }
+    },
+    loading: (state => {
+      return state.flights && state.flights.length
+    })
   }
 })
