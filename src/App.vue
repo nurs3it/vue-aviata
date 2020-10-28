@@ -4,12 +4,9 @@
       <v-app-bar elevation="0" class="pa-0 mb-10 white-background-color">
         <HeaderBar />
       </v-app-bar>
-      <v-container class="flex-column">
+      <v-container class="d-flex justify-center align-center flex-column pa-0">
         <MainContent />
       </v-container>
-      <!--<v-footer class="pa-0">
-        <FooterContent />
-      </v-footer>-->
     </v-main>
   </v-app>
 </template>

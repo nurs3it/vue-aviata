@@ -1,5 +1,5 @@
 <template>
-  <section class="main-content">
+  <section class="main-content content">
     <v-row no-gutters>
       <v-col class="main-content__filters" cols="3">
         <Filters/>
@@ -25,11 +25,3 @@ export default {
   },
 }
 </script>
-
-<style scoped lang="scss">
-.main-content {
-  max-width: 1200px;
-  width: 1200px;
-  margin: 0 auto;
-}
-</style>

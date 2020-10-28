@@ -6,30 +6,44 @@
           <v-col cols="12" class="mt-5">
             <v-row>
               <v-col class="align-center d-flex" cols="3">
-                <img width="30" height="30" :src="`https://aviata.kz/static/airline-logos/80x80/${ticket.validating_carrier}.png`" alt="icon">
+                <img width="30" height="30"
+                     :src="`https://aviata.kz/static/airline-logos/80x80/${ticket.validating_carrier}.png`" alt="icon">
                 <h5 class="ml-2">{{ airlines[ticket.validating_carrier] }}</h5>
               </v-col>
               <v-col class="align-center d-flex" cols="9">
                 <v-row>
                   <v-col cols="3" class="d-flex justify-center align-center flex-column">
-                    <small class="pa-0 ma-0">25 ноя, вс</small>
-                    <h2 class="pa-0 ma-0">23:25</h2>
+                    <small class="pa-0 ma-0">{{ formatDate(firstPoint.dep_time_iso) }}</small>
+                    <h2 class="pa-0 ma-0">{{ formatTime(firstPoint.dep_time_iso) }}</h2>
                   </v-col>
                   <v-col cols="6" class="d-flex justify-center align-center">
                     <v-row no-gutters>
-                      <v-col cols="12" class="caption d-flex justify-center"><span>4 ч 20 м</span></v-col>
+                      <v-col cols="12" class="caption d-flex justify-center"><span>{{ sec2Time() }}</span></v-col>
                       <v-col cols="12" class="d-flex justify-center way-map">
-                        <span class="way-map__first caption text--disabled">ALA</span>
+                        <span class="way-map__first caption text--disabled">
+                          {{ firstPoint.origin_code }}
+                        </span>
                         <img width="100%" src="../../assets/icons/hr.png" alt="hr">
-                        <span class="way-map__second caption text--disabled">NQZ</span>
+                        <span class="way-map__second caption text--disabled">
+                          {{ lastPoint.dest_code }}
+                        </span>
                       </v-col>
-                      <v-col cols="12" class="caption d-flex justify-center orange--text"><span>через Шымкент, 1 ч 50 м</span>
+                      <v-col cols="12" class="caption d-flex flex-column align-center justify-center">
+                        <span class="green--text" v-if="ticket.itineraries[0][0].stops === 0">Прямой рейс</span>
+                        <template v-else>
+                          <span class="orange--text" v-for="(city, index) in allPoints"
+                                :key="`city-${index}`">
+                            <template v-if="index !== allPoints.length - 1">
+                              {{ `${index === 0 ? 'через' : 'затем'} ${city.airport_dest}, 1 ч 50 м` }}
+                            </template>
+                          </span>
+                        </template>
                       </v-col>
                     </v-row>
                   </v-col>
                   <v-col cols="3" class="d-flex justify-center align-center flex-column">
-                    <small class="pa-0 ma-0">25 ноя, вс</small>
-                    <h2 class="pa-0 ma-0">03:45</h2>
+                    <small class="pa-0 ma-0">{{ formatDate(lastPoint.arr_time_iso) }}</small>
+                    <h2 class="pa-0 ma-0">{{ formatTime(lastPoint.arr_time_iso) }}</h2>
                   </v-col>
                 </v-row>
               </v-col>
@@ -53,7 +67,8 @@
       </v-col>
       <v-col class="pa-5 secondary-background-color" cols="3">
         <v-row no-gutters class="flex-column pa-0 ma-0">
-          <v-col cols="12" class="pa-0 ma-0 mb-3"><h3 align="center">{{ `${ticket.price} ${ticket.currency}` }}</h3></v-col>
+          <v-col cols="12" class="pa-0 ma-0 mb-3"><h3 align="center">{{ `${ticket.price} ${ticket.currency}` }}</h3>
+          </v-col>
           <v-col cols="12" class="pa-0 ma-0 mb-3">
             <v-btn block color="accent">
               Выбрать
@@ -83,13 +98,45 @@
 </template>
 
 <script>
-import { mapState } from "vuex"
+import {mapState} from "vuex"
+import _ from "moment"
+
 export default {
   name: "TicketsItem",
   props: ["ticket"],
   computed: {
-    ...mapState(["airlines"])
-  }
+    ...mapState(["airlines"]),
+    allPoints() {
+      return this.ticket.itineraries[0][0].segments
+    },
+    firstPoint() {
+      return this.ticket.itineraries[0][0].segments[0]
+    },
+    lastPoint() {
+      return this.ticket.itineraries[0][0].segments[this.ticket.itineraries[0][0].segments.length - 1]
+    }
+  },
+  methods: {
+    sec2Time() {
+      let timeInSeconds = this.ticket.best_time;
+      let pad = function (num, size) {
+            return ('000' + num).slice(size * -1);
+          },
+          time = parseFloat(timeInSeconds).toFixed(3),
+          hours = Math.floor(time / 60 / 60),
+          minutes = Math.floor(time / 60) % 60
+
+      return `${pad(hours, 2)} ч ${pad(minutes, 2)} м`
+    },
+    formatDate(date) {
+      _.locale('ru');
+      return _(date).format("DD MMM dd");
+    },
+    formatTime(date) {
+      _.locale('ru');
+      return _(date).format("LT");
+    }
+  },
 }
 </script>
 
@@ -97,15 +144,19 @@ export default {
 .tickets__item {
   min-height: 100px;
   height: max-content;
+
   .way-map {
     position: relative;
+
     &__first, &__second {
       position: absolute;
     }
+
     &__first {
       top: -20px;
       left: 0;
     }
+
     &__second {
       top: -20px;
       right: 0;

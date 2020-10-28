@@ -1,16 +1,9 @@
-.content {
-  padding: 0;
-  margin: 0 auto;
-  max-width: 1200px;
-  width: 1200px;
-}
-
 .main-background-color {
   background: #D7D7D7;
 }
 
 .white-background-color {
-  background: white!important;
+  background: white !important;
 }
 
 .secondary-background-color {
@@ -34,10 +27,16 @@ img {
 }
 
 .card-background-color {
-  background: #F5F5F5!important;
+  background: #F5F5F5 !important;
 }
 
 .airlines-list {
   max-height: 400px;
   overflow-y: auto;
 }
+
+.main-content {
+  max-width: 1264px;
+}
+
+@import "./responsive.scss";

@@ -55,7 +55,7 @@ export default new Vuex.Store({
       commit('CHANGE_FILTERS_AIRLINES', airlinesFilter)
       setTimeout(() => {
         commit('SET_FLIGHTS', data.flights)
-      }, 0) // fake delay
+      }, 3000) // fake delay
     },
     resetFilterAirlines({commit}) {
       let form = {
@@ -75,7 +75,7 @@ export default new Vuex.Store({
       let filter = state.filter;
       return state.flights
         .filter(f => filter.airlines[f.validating_carrier])
-        .filter(f => filter.directOnly ? f.itineraries[0][0].segments.length > 1 : f)
+        .filter(f => filter.directOnly ? f.itineraries[0][0].stops === 0 : f)
         .filter(f => filter.returnableOnly ? f.refundable : f)
         .filter(f => filter.luggageOnly ? f.services['1PC'] || f.services['20KG'] : f)
     }
