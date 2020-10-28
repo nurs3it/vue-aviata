@@ -3,10 +3,10 @@
     <v-row class="tickets__item">
       <v-col class="pa-5 pl-16 pr-16" cols="9">
         <v-row no-gutters class="height-100">
-          <v-col cols="12" class="mt-5">
+          <v-col cols="12" class="mt-1">
             <v-row>
               <v-col class="align-center d-flex" cols="3">
-                <img width="30" height="30"
+                <img width="40" height="40"
                      :src="`https://aviata.kz/static/airline-logos/80x80/${ticket.validating_carrier}.png`" alt="icon">
                 <h5 class="ml-2">{{ airlines[ticket.validating_carrier] }}</h5>
               </v-col>
