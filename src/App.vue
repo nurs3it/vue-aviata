@@ -17,9 +17,16 @@
 <script>
 import HeaderBar from "./components/HeaderBar";
 import MainContent from "./components/MainContent";
+import {mapActions} from "vuex"
 export default {
   name: "App",
   components: {MainContent, HeaderBar},
+  created() {
+    this.init();
+  },
+  methods: {
+    ...mapActions(['init']),
+  },
 };
 </script>
 

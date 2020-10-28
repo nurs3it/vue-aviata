@@ -1,7 +1,9 @@
 <template>
   <section class="main-content">
     <v-row no-gutters>
-      <v-col class="main-content__filters" cols="3"></v-col>
+      <v-col class="main-content__filters" cols="3">
+        <Filters/>
+      </v-col>
       <v-col class="main-content__tickets" cols="9">
         <Tickets :tickets="tickets"/>
       </v-col>
@@ -10,11 +12,12 @@
 </template>
 
 <script>
-import Tickets from "@/components/Tickets/index";
+import Tickets from "@/components/Tickets/Index";
+import Filters from "@/components/Filters/Index";
 
 export default {
   name: "MainContent",
-  components: {Tickets},
+  components: {Filters, Tickets},
   data() {
     return {
       tickets: [1, 2, 3, 5]
@@ -28,11 +31,5 @@ export default {
   max-width: 1200px;
   width: 1200px;
   margin: 0 auto;
-
-  &__filters {
-  }
-
-  &__tickets {
-  }
 }
 </style>
