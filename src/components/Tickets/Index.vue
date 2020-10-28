@@ -26,7 +26,6 @@ import SkeletonItem from "@/components/Tickets/SkeletonItem";
 export default {
   name: "Tickets",
   components: {SkeletonItem, TicketsItem},
-  props: ["tickets"],
   computed: {
     ...mapGetters(['filteredFlights', 'loading'])
   },

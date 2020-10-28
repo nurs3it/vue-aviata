@@ -4,8 +4,8 @@
       <v-col class="main-content__filters" cols="3">
         <Filters/>
       </v-col>
-      <v-col class="main-content__tickets" cols="9">
-        <Tickets :tickets="tickets"/>
+      <v-col class="main-content__tickets">
+        <Tickets />
       </v-col>
     </v-row>
   </section>
@@ -17,11 +17,6 @@ import Filters from "@/components/Filters/Index";
 
 export default {
   name: "MainContent",
-  components: {Filters, Tickets},
-  data() {
-    return {
-      tickets: [1, 2, 3, 5]
-    }
-  },
+  components: {Filters, Tickets}
 }
 </script>

@@ -1,6 +1,14 @@
 @media all and (max-width: 1264px) {
   .main-content {
     max-width: 960px;
+
+    .tickets__item__luggage__info {
+      flex-direction: column;
+    }
+
+    .dashed-link {
+      font-size: 12px;
+    }
   }
 }
 
@@ -8,11 +16,25 @@
   .main-content {
     max-width: 600px;
   }
+  .main-content__filters {
+    display: none!important;
+  }
+}
+
+@media all and (min-width: 960px) {
+  .main-content__filters {
+    display: block!important;
+  }
 }
 
 @media all and (max-width: 600px) {
   .main-content {
-    max-width: 100%;
+    max-width: 600px!important;
+    width: 600px;
+  }
+
+  body {
+    overflow: auto;
   }
 }
 

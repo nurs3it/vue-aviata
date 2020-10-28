@@ -1,7 +1,7 @@
 <template>
   <v-card elevation="2" class="pa-0">
     <v-row class="tickets__item">
-      <v-col class="pa-5 pl-16 pr-16" cols="9">
+      <v-col class="pa-5 pl-8 pl-lg-16 pr-lg-16" cols="9">
         <v-row no-gutters class="height-100">
           <v-col cols="12" class="mt-1">
             <v-row>
@@ -65,7 +65,7 @@
           </v-col>
         </v-row>
       </v-col>
-      <v-col class="pa-5 secondary-background-color" cols="3">
+      <v-col class="pa-5 pa-sm-3 pa-lg-5 secondary-background-color tickets__item__luggage" cols="3">
         <v-row no-gutters class="flex-column pa-0 ma-0">
           <v-col cols="12" class="pa-0 ma-0 mb-3"><h3 align="center">{{ `${ticket.price} ${ticket.currency}` }}</h3>
           </v-col>
@@ -79,8 +79,8 @@
               Цена за всех пассажиров
             </p>
           </v-col>
-          <v-col cols="12" class="pa-0 ma-0 d-flex align-center">
-            <span class="x-small-caption">
+          <v-col cols="12" class="pa-0 ma-0 d-flex align-center tickets__item__luggage__info">
+            <span class="x-small-caption mr-1">
               Нет багажа
             </span>
             <v-btn
