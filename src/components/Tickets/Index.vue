@@ -15,6 +15,25 @@
         <TicketsItem :ticket="item"/>
       </v-col>
     </template>
+
+    <v-fab-transition>
+      <v-btn
+          class="d-flex d-md-none"
+          color="accent"
+          dark
+          fixed
+          bottom
+          right
+          fab
+          @click="dialog = true"
+      >
+        <v-icon>mdi-filter</v-icon>
+      </v-btn>
+    </v-fab-transition>
+
+    <v-dialog v-model="dialog" scrollable max-width="500px">
+      <Filters />
+    </v-dialog>
   </v-row>
 </template>
 
@@ -22,19 +41,26 @@
 import TicketsItem from "@/components/Tickets/Item";
 import {mapGetters} from "vuex";
 import SkeletonItem from "@/components/Tickets/SkeletonItem";
+import Filters from "@/components/Filters/Index";
 
 export default {
   name: "Tickets",
-  components: {SkeletonItem, TicketsItem},
+  components: {Filters, SkeletonItem, TicketsItem},
   computed: {
     ...mapGetters(['filteredFlights', 'loading'])
   },
   inject: ['theme'],
+  data() {
+    return {
+      dialog: false
+    }
+  },
 }
 </script>
 
 <style scoped>
 .tickets {
   width: 100%;
+  position: relative;
 }
 </style>
