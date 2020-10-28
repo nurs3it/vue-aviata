@@ -44,9 +44,9 @@
                 color="secondary"
                 class="text-decoration-none ml-5 dashed-link"
             >Условия тарифа</a>
-            <span class="ma-0 ml-5 text--secondary d-flex align-center">
+            <span class="ma-0 ml-5 text--secondary d-flex align-center" v-if="!ticket.refundable">
               <img width="20" height="20" src="../../assets/icons/irrevocable.png"
-                   alt="невозвартный"><span>невозвартный</span>
+                   alt="невозвартный"><span>невозвратный</span>
             </span>
           </v-col>
         </v-row>

@@ -10,7 +10,10 @@ export default new Vuex.Store({
     airlines: data.airlines,
     flights: [],
     filter: {
-      airlines: []
+      airlines: {},
+      directOnly: false,
+      luggageOnly: false,
+      returnableOnly: false
     }
   },
   mutations: {
@@ -20,20 +23,61 @@ export default new Vuex.Store({
     SET_FLIGHTS(store, payload) {
       store.flights = payload;
     },
-    CHANGE_AIRLINE(store, payload) {
-      store.filter.airline = payload
+    CHANGE_FILTERS_AIRLINES(store, payload) {
+      store.filter.airlines = payload
+    },
+    CHANGE_FILTERS_AIRLINES_KEY(store, payload) {
+      console.log("qwe", payload)
+      store.filter.airlines[payload.key] = payload.value
+    },
+    CHANGE_FILTERS_DIRECT_ONLY(store, payload) {
+      store.filter.directOnly = payload
+    },
+    CHANGE_FILTERS_LUGGAGE_ONLY(store, payload) {
+      store.filter.luggageOnly = payload
+    },
+    CHANGE_FILTERS_RETURNABLE_ONLY(store, payload) {
+      store.filter.returnableOnly = payload
+    },
+    RESET_FILTERS(store, payload) {
+      store.filter = payload
     }
   },
   actions: {
     init({commit}) {
       let airlines = [];
+      let airlinesFilter = {}
       for (let argument in data.airlines) {
         airlines.push({[argument]: data.airlines[argument]})
+        airlinesFilter[argument] = true
       }
       commit('SET_AIRLINES_IN_ARRAY', airlines)
+      commit('CHANGE_FILTERS_AIRLINES', airlinesFilter)
       setTimeout(() => {
         commit('SET_FLIGHTS', data.flights)
-      }, 3000) // fake delay
+      }, 0) // fake delay
+    },
+    resetFilterAirlines({commit}) {
+      let form = {
+        airlines: {},
+        directOnly: false,
+        luggageOnly: false,
+        returnableOnly: false
+      }
+      for (let argument in data.airlines) {
+        form.airlines[argument] = true
+      }
+      commit('RESET_FILTERS', form)
+    }
+  },
+  getters: {
+    filteredFlights: (state) => {
+      let filter = state.filter;
+      return state.flights
+        .filter(f => filter.airlines[f.validating_carrier])
+        .filter(f => filter.directOnly ? f.itineraries[0][0].segments.length > 1 : f)
+        .filter(f => filter.returnableOnly ? f.refundable : f)
+        .filter(f => filter.luggageOnly ? f.services['1PC'] || f.services['20KG'] : f)
     }
   }
 })

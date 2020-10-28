@@ -32,3 +32,12 @@ img {
 .dashed-link {
   border-bottom: 1px dashed #7284E4;
 }
+
+.card-background-color {
+  background: #F5F5F5!important;
+}
+
+.airlines-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
