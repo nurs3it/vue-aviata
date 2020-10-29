@@ -1,21 +1,26 @@
 <template>
   <v-row class="tickets">
     <template v-if="!loading">
-      <v-col class="pa-0 pb-3" cols="12" v-for="(item, index) in 4" :key="`skeleton-${index}`">
-        <SkeletonItem/>
-      </v-col>
+      <v-scale-transition hide-on-leave group class="width-100">
+        <v-col class="pa-0 pb-3" cols="12" v-for="(item, index) in 4" :key="`skeleton-${index}`">
+          <SkeletonItem/>
+        </v-col>
+      </v-scale-transition>
     </template>
     <template v-else-if="!filteredFlights.length">
-      <v-col class="pa-0 pb-0" cols="12">
-        <h3>Нет данных</h3>
-      </v-col>
+      <v-scale-transition hide-on-leave group class="width-100">
+        <v-col class="pa-0 pb-0" cols="12">
+          <h3>Нет данных</h3>
+        </v-col>
+      </v-scale-transition>
     </template>
     <template v-else>
-      <v-col class="pa-0 pb-3" cols="12" v-for="(item, index) in filteredFlights" :key="`ticket-${index}`">
-        <TicketsItem :ticket="item"/>
-      </v-col>
+      <v-scale-transition hide-on-leave group class="width-100">
+        <v-col class="pa-0 pb-3" cols="12" v-for="(item, index) in filteredFlights" :key="`ticket-${index}`">
+          <TicketsItem :ticket="item"/>
+        </v-col>
+      </v-scale-transition>
     </template>
-
     <v-fab-transition>
       <v-btn
           class="d-flex d-md-none"
@@ -30,9 +35,8 @@
         <v-icon>mdi-filter</v-icon>
       </v-btn>
     </v-fab-transition>
-
     <v-dialog v-model="dialog" scrollable max-width="500px">
-      <Filters />
+      <Filters/>
     </v-dialog>
   </v-row>
 </template>

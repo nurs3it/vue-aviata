@@ -144,7 +144,6 @@ export default {
 .tickets__item {
   min-height: 100px;
   height: max-content;
-
   .way-map {
     position: relative;
 
