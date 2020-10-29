@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import TicketsItem from "@/components/Tickets/Item";
+import TicketsItem from "@/components/Tickets/Item/Item";
 import {mapGetters} from "vuex";
 import SkeletonItem from "@/components/Tickets/SkeletonItem";
 import Filters from "@/components/Filters/Index";
